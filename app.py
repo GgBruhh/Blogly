@@ -16,3 +16,7 @@ connect_db(app)
 @app.route('/')
 def show_homepage():
     return render_template('home.html')
+
+@app.route('/users')
+def user_screen():
+    return render_template('users.html')
