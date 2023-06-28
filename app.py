@@ -80,8 +80,8 @@ def posts_new_form(user_id):
 
 @app.route('/posts/<int:post_id>')
 def posts_page(post_id):
-    posts = Post.query.get_or_404(post_id)
-    return render_template('post_page.html', posts=posts)
+    post = Post.query.get_or_404(post_id)
+    return render_template('post_page.html', post=post)
 
 @app.route('/users/<int:user_id>/posts/new', methods=["POST"])
 def posts_new(user_id):
