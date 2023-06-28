@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}Blogly{% endblock %}
+
+
+{% block content %}
+<h1>Edit a user </h1>
+<form action="" method="POST">
+    <input type="text" name="first_name" placeholder="First Name">
+    <input type="text" name="last_name" placeholder="Last Name">
+    <input type="text" name="image_url" placeholder="Image URL">
+    <a href="/users">Cancel</a>
+    <button>Submit</button>
+</form>
+
+{% endblock %}
