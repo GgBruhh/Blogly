@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, redirect
 from flask_debugtoolbar import DebugToolbarExtension
 from models import db, connect_db, User
 
@@ -19,4 +19,21 @@ def show_homepage():
 
 @app.route('/users')
 def user_screen():
-    return render_template('users.html')
+    users = User.query.all()
+    return render_template('users.html', users=users)
+
+@app.route('/users/add', methods=['GET'])
+def add_user_form():
+    return render_template('new_user.html')
+
+@app.route('/users/add', methods=['POST'])
+def add_user():
+    new_user = User(
+        first_name=request.form['first_name'],
+        last_name=request.form['last_name'],
+        image_url=request.form['image_url'] or None)
+
+    db.session.add(new_user)
+    db.session.commit()
+
+    return redirect("/users")
