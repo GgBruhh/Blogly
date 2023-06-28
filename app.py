@@ -15,7 +15,8 @@ connect_db(app)
 
 @app.route('/')
 def show_homepage():
-    return render_template('home.html')
+    posts = Post.query.all()
+    return render_template('home.html',posts=posts)
 
 @app.route('/users')
 def user_screen():
@@ -85,7 +86,6 @@ def posts_page(post_id):
 
 @app.route('/users/<int:user_id>/posts/new', methods=["POST"])
 def posts_new(user_id):
-    """Handle form submission for creating a new post for a specific user"""
 
     user = User.query.get_or_404(user_id)
     new_post = Post(title=request.form['title'],
@@ -109,6 +109,15 @@ def add_edit_posts_page(post_id):
     post.content = request.form['content']
 
     db.session.add(post)
+    db.session.commit()
+
+    return redirect(f"/users/{post.user_id}")
+
+@app.route('/posts/<int:post_id>/delete', methods=["POST"])
+def post_delete(post_id):
+
+    post = Post.query.get_or_404(post_id)
+    db.session.delete(post)
     db.session.commit()
 
     return redirect(f"/users/{post.user_id}")

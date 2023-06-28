@@ -5,4 +5,12 @@
 {% block content %}
 <h1>Blogly</h1>
 
+<h2>Blogly Recent Posts</h2>
+
+{% for post in posts %}
+<h3>{{post.title}}</h3>
+<p>{{post.content}}</p>
+<p>By {{post.user.first_name}} {{post.user.last_name}} created at {{post.created_at}}</p>
+{% endfor %}
+
 {% endblock %}
